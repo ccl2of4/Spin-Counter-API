@@ -1,2 +1,2 @@
 # Spin-Counter-API
-API for Spin Counter
+API and database schema for Spin Counter used on server

@@ -1,7 +1,7 @@
 PHPUnit 4.6.6 by Sebastian Bergmann and contributors.
 
-...........
+............
 
-Time: 2.37 seconds, Memory: 11.75Mb
+Time: 2.58 seconds, Memory: 12.00Mb
 
-OK (11 tests, 26 assertions)
+OK (12 tests, 28 assertions)

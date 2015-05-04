@@ -169,6 +169,54 @@
 			$this->assertNull($obj);
 		}
 
+		public function testPostUnfollow ()
+		{
+			// user 1
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, "http://localhost/api/signup.php");
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, "mac_address=12&username=connor");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$json = curl_exec($ch);
+			curl_close($ch);
+			$user_id_1 = json_decode($json, true)['user_id'];
+
+			// user 2
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, "http://localhost/api/signup.php");
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, "mac_address=15&username=charles");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$json = curl_exec($ch);
+			curl_close($ch);
+			$user_id_2 = json_decode($json, true)['user_id'];
+
+			// follow
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, "http://localhost/api/follow.php");
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, "following_user_id={$user_id_1}&followed_user_id={$user_id_2}");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$json = curl_exec($ch);
+			$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			curl_close($ch);
+
+			// unfollow
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, "http://localhost/api/unfollow.php");
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, "following_user_id={$user_id_1}&followed_user_id={$user_id_2}");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$json = curl_exec($ch);
+			$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			curl_close($ch);
+
+			$obj = json_decode($json, true);
+
+			$this->assertEquals(204, $http_code);
+			$this->assertNull($obj);
+		}
+
 		public function testGetFollowers ()
 		{
 			// user 1

@@ -2,7 +2,6 @@
 	require('database.php');
 
 	/**
-	*
 	* Gets relevant information for a user
 	*
 	* @param string $username the username of the user to retrieve
@@ -20,7 +19,6 @@
 	}
 
 	/**
-	*
 	* Gets relevant information for a user
 	*
 	* @param string $mac_address the mac address of the user to retrieve
@@ -38,7 +36,6 @@
 	}
 
 	/**
-	*
 	* Gets relevant information for a user
 	*
 	* @param int $user_id the id of the user to retrieve
@@ -67,12 +64,10 @@
 	}
 
 	/**
-	*
 	* Gets the number of wins for the given user
 	*
 	* @param int $user_id the id of the user
 	* @return int, or null if no data for the user could be found
-	*
 	*/
 	function getWinsForUser ($user_id)
 	{
@@ -86,12 +81,10 @@
 	}
 
 	/**
-	*
 	* Gets the number of losses for the given user
 	*
 	* @param int $user_id the id of the user
 	* @return int, or null if no data for the user could be found
-	*
 	*/
 	function getLossesForUser ($user_id)
 	{
@@ -105,12 +98,10 @@
 	}
 
 	/**
-	*
 	* Gets the number of ties for the given user
 	*
 	* @param int $user_id the id of the user
 	* @return int, or null if no data for the user could be found
-	*
 	*/
 	function getTiesForUser ($user_id)
 	{
@@ -124,8 +115,8 @@
 	}
 
 	/**
-	*
 	* Search for users that match the given query
+	* 
 	* Example:
 	* given these users exist:
 	*  joe, john, johnny
@@ -138,7 +129,6 @@
 	*
 	* @param string $query the query to search against
 	* @return array of associative arrays each equivalent to that return by getUser
-	*
 	*/
 	function searchUsers ($query)
 	{
@@ -155,11 +145,9 @@
 	}
 
 	/**
-	*
 	* Gets the leaderboard (top 100 users ordered by max_spins)
 	* 
 	* @return array of associative arrays each equivalent to that returned by getUser
-	*
 	*/
 	function getLeaderboard ()
 	{
@@ -177,12 +165,10 @@
 	}
 
 	/**
-	*
 	* Gets the users that the given user is following
 	*
 	* @param $user_id the user whose followers to search for
 	* @return array of associative arrays each equivalent to that returned by getUser
-	*
 	*/
 	function getFollowedUsers ($user_id)
 	{
@@ -200,7 +186,6 @@
 	}
 
 	/**
-	*
 	* Try to create a user with the given credentials. If the mac_address is already
 	* being used by another user, or if the username is taken, the creation will fail
 	*
@@ -208,7 +193,6 @@
 	* @param $username the username wanted
 	* @return the user_id of the created user if the user was created succesfully,
 	* null otherwise
-	* 
 	*/
 	function createUser ($mac_address, $username)
 	{
@@ -226,7 +210,6 @@
 	}
 
 	/**
-	*
 	* Changes the username for the given user
 	*
 	* @param int $user_id the user id of the user
@@ -243,12 +226,10 @@
 	}
 
 	/**
-	*
 	* Create a following relationship between two users
 	*
 	* @param int $following_user_id id of the user doing the following
 	* @param int $followed_user_id id of the user being followed
-	*
 	*/
 	function followUser ($following_user_id, $followed_user_id)
 	{
@@ -258,12 +239,10 @@
 	}
 
 	/**
-	*
 	* Destroy the existing following relationship between two users
 	*
 	* @param int $unfollowing_user_id
 	* @param int $unfollowed_user_id
-	*
 	*/
 	function unfollowUser ($unfollowing_user_id, $unfollowed_user_id)
 	{
@@ -273,7 +252,6 @@
 	}
 
 	/**
-	*
 	* Checks if $spins is greater than the user's max spins. If so,
 	* updates accordingly
 	*
@@ -291,7 +269,6 @@
 	}
 
 	/**
-	*
 	* Adds an entry in the DB for the game. Calls reportSpins
 	* for both users using the provided spins
 	*

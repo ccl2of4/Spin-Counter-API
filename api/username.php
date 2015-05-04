@@ -14,4 +14,7 @@
 		http_response_code(409);
 		exit;
 	}
+
+	$user = getUserByMacAddress($mac_address);
+	echo json_encode($user);
 ?>

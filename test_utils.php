@@ -174,5 +174,26 @@
 			$this->assertEquals(12, $user_1['max_spins']);
 			$this->assertEquals(12, $user_2['max_spins']);
 		}
+
+		public function testSearchOneResult ()
+		{
+			$user_id_1 = createUser('12:34', 'connor');
+			$user_id_2 = createUser('12:35', 'john');
+			$user_id_3 = createUser('12:37', 'johnny');
+
+			$result = searchUsers('con');
+			$this->assertEquals(1, count($result));
+			$this->assertEquals('connor', $result[0]['username']);
+		}
+
+		public function testSearchTwoResults ()
+		{
+			$user_id_1 = createUser('12:34', 'connor');
+			$user_id_2 = createUser('12:35', 'john');
+			$user_id_3 = createUser('12:37', 'johnny');
+
+			$result = searchUsers('john');
+			$this->assertEquals(2, count($result));
+		}
 	}
 ?>

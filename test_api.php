@@ -91,7 +91,8 @@
 			$obj = json_decode($json, true);
 
 			$this->assertEquals(200, $http_code);
-			$this->assertNull($obj);
+			$this->assertEquals('12', $obj['mac_address']);
+			$this->assertEquals('charles', $obj['username']);
 		}
 
 		public function testPostUsernameUsernameTaken ()
@@ -314,6 +315,145 @@
 
 			$this->assertEquals(200, $http_code);
 			$this->assertEquals(15, $obj['max_spins']);
+		}
+
+		public function testGetSearchUsersNoResults ()
+		{
+			// user 1
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, "http://localhost/api/signup.php");
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, "mac_address=12&username=connor");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$json = curl_exec($ch);
+			curl_close($ch);
+			$user_id_1 = json_decode($json, true)['user_id'];
+
+			// user 2
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, "http://localhost/api/signup.php");
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, "mac_address=15&username=john");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$json = curl_exec($ch);
+			curl_close($ch);
+			$user_id_2 = json_decode($json, true)['user_id'];
+
+			// user 3
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, "http://localhost/api/signup.php");
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, "mac_address=27&username=johnny");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$json = curl_exec($ch);
+			curl_close($ch);
+			$user_id_3 = json_decode($json, true)['user_id'];
+
+			// search users
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, "http://localhost/api/searchusers.php?query=no_users_will_match_this");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$json = curl_exec($ch);
+			$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			curl_close($ch);
+
+			$obj = json_decode($json, true);
+
+			$this->assertEquals(200, $http_code);
+			$this->assertEquals(0, count($obj));
+		}
+
+		public function testGetSearchUsersOneResult ()
+		{
+			// user 1
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, "http://localhost/api/signup.php");
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, "mac_address=12&username=connor");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$json = curl_exec($ch);
+			curl_close($ch);
+			$user_id_1 = json_decode($json, true)['user_id'];
+
+			// user 2
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, "http://localhost/api/signup.php");
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, "mac_address=15&username=john");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$json = curl_exec($ch);
+			curl_close($ch);
+			$user_id_2 = json_decode($json, true)['user_id'];
+
+			// user 3
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, "http://localhost/api/signup.php");
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, "mac_address=27&username=johnny");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$json = curl_exec($ch);
+			curl_close($ch);
+			$user_id_3 = json_decode($json, true)['user_id'];
+
+			// search users
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, "http://localhost/api/searchusers.php?query=con");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$json = curl_exec($ch);
+			$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			curl_close($ch);
+
+			$obj = json_decode($json, true);
+
+			$this->assertEquals(200, $http_code);
+			$this->assertEquals(1, count($obj));
+			$this->assertEquals('connor', $obj[0]['username']);
+		}
+
+		public function testGetSearchUsersTwoResults ()
+		{
+			// user 1
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, "http://localhost/api/signup.php");
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, "mac_address=12&username=connor");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$json = curl_exec($ch);
+			curl_close($ch);
+			$user_id_1 = json_decode($json, true)['user_id'];
+
+			// user 2
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, "http://localhost/api/signup.php");
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, "mac_address=15&username=john");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$json = curl_exec($ch);
+			curl_close($ch);
+			$user_id_2 = json_decode($json, true)['user_id'];
+
+			// user 3
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, "http://localhost/api/signup.php");
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, "mac_address=27&username=johnny");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$json = curl_exec($ch);
+			curl_close($ch);
+			$user_id_3 = json_decode($json, true)['user_id'];
+
+			// search users
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, "http://localhost/api/searchusers.php?query=john");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$json = curl_exec($ch);
+			$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			curl_close($ch);
+
+			$obj = json_decode($json, true);
+
+			$this->assertEquals(200, $http_code);
+			$this->assertEquals(2, count($obj));
 		}
 	}
 ?>

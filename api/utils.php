@@ -1,6 +1,5 @@
 <?php
-
-	include('database.php');
+	require('database.php');
 
 	/**
 	*
@@ -128,18 +127,18 @@
 	*
 	* Search for users that match the given query
 	* Example:
-    * given these users exist:
-    *  joe, john, johnny
-    *
-    * the query "jo" will yield [joe, john, johnny]
-    * the query "joe" will yield [joe]
-    * the query "john" will yeild [john, johnny]
-    * the query "johhny" will yield [johhny]
-    * the query "joo" will yield []
+	* given these users exist:
+	*  joe, john, johnny
 	*
-    * @param string $query the query to search against
-    * @return array of associative arrays each equivalent to that return by getUser
-    *
+	* the query "jo" will yield [joe, john, johnny]
+	* the query "joe" will yield [joe]
+	* the query "john" will yeild [john, johnny]
+	* the query "johhny" will yield [johhny]
+	* the query "joo" will yield []
+	*
+	* @param string $query the query to search against
+	* @return array of associative arrays each equivalent to that return by getUser
+	*
 	*/
 	function searchUsers ($query)
 	{

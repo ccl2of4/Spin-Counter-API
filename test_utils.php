@@ -1,16 +1,20 @@
 <?php
 
-	include('api/utils.php');
-
+	require('api/utils.php');
+	
+	/**
+	*
+	* Functional tests for utils.php
+	*
+	*/
 	class UtilsTest extends PHPUnit_Framework_TestCase
 	{
 		public function cleanUp ()
 		{
-			// drop all DB entries
-			$db = new Database();
-			$db->query('delete from GAMES where 1;');
-			$db->query('delete from FOLLOWERS where 1;');
-			$db->query('delete from USERS where 1;');
+            global $db_username;
+            global $db_password;
+
+			system("mysql -u {$db_username} -p{$db_password} < database/schema.sql");
 		}
 		
 		public function setUp () { $this->cleanUp(); }

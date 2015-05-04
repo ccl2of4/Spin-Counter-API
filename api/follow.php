@@ -1,5 +1,5 @@
 <?php
-	include('utils.php');
+	require('utils.php');
 
 
 	if (!isset($_POST['following_user_id']) ||

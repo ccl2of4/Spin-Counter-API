@@ -1,5 +1,5 @@
 <?php
-	include('utils.php');
+	require('utils.php');
 
 	if (!isset($_POST['username']) || !isset($_POST['mac_address'])) {
 		http_response_code(400);

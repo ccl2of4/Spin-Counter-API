@@ -1,5 +1,5 @@
 <?php
-	include('utils.php');
+	require('utils.php');
 
 	if (!isset($_POST['mac_address']) || !isset($_POST['spins'])) {
 		http_response_code(400);

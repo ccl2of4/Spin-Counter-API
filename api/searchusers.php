@@ -1,5 +1,5 @@
 <?php
-	include('utils.php');
+	require('utils.php');
 
 	if (!isset($_GET['query'])) {
 		http_response_code(400);

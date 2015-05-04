@@ -1,5 +1,5 @@
 <?php
-	include('utils.php');
+	require('utils.php');
 
 	if (!isset($_POST['player1_user_id']) ||
 		!isset($_POST['player2_user_id']) ||

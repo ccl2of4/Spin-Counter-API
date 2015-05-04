@@ -1,6 +1,5 @@
 <?php
-    
-    include('credentials.php');
+    require('credentials.php');
 
     class Database
     {

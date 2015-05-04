@@ -6,6 +6,42 @@
 	*
 	* Gets relevant information for a user
 	*
+	* @param string $username the username of the user to retrieve
+	* @return associative array with user's information, or null if no such user exists
+	*/
+	function getUserByUsername ($username)
+	{
+		$db = new Database();
+		$select = "select user_id from USERS where username = '{$username}';";
+		$result = $db->query($select);
+		if ($row = mysqli_fetch_array($result)) {
+			return getUser($row['user_id']);
+		}
+		return null;
+	}
+
+	/**
+	*
+	* Gets relevant information for a user
+	*
+	* @param string $mac_address the mac address of the user to retrieve
+	* @return associative array with user's information, or null if no such user exists
+	*/
+	function getUserByMacAddress ($mac_address)
+	{
+		$db = new Database();
+		$select = "select user_id from USERS where mac_address = '{$mac_address}';";
+		$result = $db->query($select);
+		if ($row = mysqli_fetch_array($result)) {
+			return getUser($row['user_id']);
+		}
+		return null;
+	}
+
+	/**
+	*
+	* Gets relevant information for a user
+	*
 	* @param int $user_id the id of the user to retrieve
 	* @return associative array with user's information, or null if no such user exists
 	*/
@@ -177,12 +213,12 @@
 	{
 		$db = new Database();
 
-		if (!verifyMacAddresss($mac_address) || !verifyUsername($username)) {
+		$insert = "insert into USERS(mac_address,username) values('{$mac_address}','{$username}');";
+
+		// if the mac address or username are taken, the query will return false
+		if(!$db->query($insert)) {
 			return false;
 		}
-
-		$insert = "insert into USERS(mac_address,username) values('{$mac_address}','{$username}');";
-		$db->query($insert);
 
 		$select = "select user_id from USERS where username = '{$username}'";
 		return mysqli_fetch_array($db->query($select))['user_id'];
@@ -190,34 +226,19 @@
 
 	/**
 	*
-	* Verifies that a mac address is valid for a new user
+	* Changes the username for the given user
 	*
-	* @param string $mac_address
-	* @return true if the mac_address can be used, false otherwise
-	*
+	* @param int $user_id the user id of the user
+	* @param string $new_username the new username for the user
+	* @return true if the username can be changed, false otherwise
 	*/
-	function verifyMacAddresss ($mac_address)
+	function changeUsername ($user_id, $new_username)
 	{
 		$db = new Database();
-		$select = "select COUNT(*) from USERS where mac_address = '{$mac_address}';";
-		$result = $db->query($select);
-		return mysqli_fetch_array($result)[0] == 0;
-	}
+		$update = "update USERS set username = '{$new_username}' where user_id = {$user_id};";
 
-	/**
-	*
-	* Verifies that a username is valid for a new user
-	*
-	* @param string $username
-	* @return true if the username can be used, false otherwise
-	*
-	*/
-	function verifyUsername ($username)
-	{
-		$db = new Database();
-		$select = "select COUNT(*) from USERS where username = '{$username}';";
-		$result = $db->query($select);
-		return mysqli_fetch_array($result)[0] == 0;
+		// if the username is taken then this will return false
+		return $db->query($update);
 	}
 
 	/**

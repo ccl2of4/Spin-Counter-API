@@ -9,7 +9,7 @@
 	$username = @$_POST['username'];
 	$mac_address = @$_POST['mac_address'];
 
-	$db = Database::singleton();
+	$db = new Database();
 
 	// check mac address to make sure there's already an account for it
 	$check_mac_address = "select * from USERS where mac_address = '{$mac_address}';";

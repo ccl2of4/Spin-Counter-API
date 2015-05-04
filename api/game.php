@@ -14,7 +14,7 @@
 	$player1_spins = @$_POST['player1_spins'];
 	$player2_spins = @$_POST['player2_spins'];
 
-	$db = Database::singleton();
+	$db = new Database();
 
 	// insert a game
 	$insert = "insert into GAMES(player1_user_id,player2_user_id,player1_spins,player2_spins) values({$player1_user_id},{$player2_user_id},{$player1_spins},{$player2_spins});";

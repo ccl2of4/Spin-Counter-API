@@ -10,7 +10,7 @@
 	$following_user_id = @$_POST['following_user_id'];
 	$followed_user_id = @$_POST['followed_user_id'];
 
-	$db = Database::singleton();
+	$db = new Database();
 
 	// create the relationship
 	$insert = "insert into FOLLOWERS(following_user_id,followed_user_id) values({$following_user_id},{$followed_user_id});";

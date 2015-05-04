@@ -8,7 +8,7 @@
     
 	$query = @$_GET['query'];
 
-	$db = Database::singleton();
+	$db = new Database();
 
 	// find user entities that match query
 	$select = "select * from USERS where username like {$query}%s;";

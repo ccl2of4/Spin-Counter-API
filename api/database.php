@@ -1,37 +1,36 @@
 <?php
     
+    include('credentials.php');
+
     class Database
     {
         var $db = null;
-
-    	public static function singleton() {
-    		static $singleton = null;
-    		if ($singleton == null) {
-    			$singleton = new static();
-    		}
-    		return $singleton;
-    	}
         
-        private function __construct()
+        function __construct()
         {
-            $this->db = mysqli_connect('localhost', 'root', 'SpinCounter1', 'SPINCOUNTER');
+            global $db_location;
+            global $username;
+            global $password;
+            global $db_name;
+            
+            $this->db = mysqli_connect('localhost', $username, $password, $db_name);
             if ($this->db == null) {
                 http_response_code(500);
-                die("Connection failed with error: " . mysqli_connect_error() . "\n");
+                error_log("Connection failed with error: " . mysqli_connect_error() . "\n");
             }
         }
-
-        public function query($sql)
+        
+        function query($sql)
         {
             $result = mysqli_query($this->db, $sql);
             if (mysqli_error($this->db)) {
                 http_response_code(500);
-                die("Query failed with error" . mysqli_error($this->db) . "\n");
+                error_log("Query \"" . $sql . "\" failed with error: " . mysqli_error($this->db) . "\n");
             }
             return $result;
         }
         
-        public function __destruct()
+        function __destruct()
         {
             mysqli_close($this->db);
         }

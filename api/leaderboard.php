@@ -8,7 +8,7 @@
 	}
 	*/
     
-	$db = Database::singleton();
+	$db = new Database();
 
 
 	// find 100 best users

@@ -1,8 +1,6 @@
+drop database if exists SPINCOUNTER;
+create database SPINCOUNTER;
 use SPINCOUNTER;
-
-drop table if exists GAMES;
-drop table if exists USERS;
-drop table if exists FOLLOWERS;
 
 create table USERS (
 	user_id int AUTO_INCREMENT NOT NULL,
@@ -54,7 +52,7 @@ create trigger max_spins_trigger
 //
 DELIMITER ;
 
-show tables;
-describe USERS;
-describe GAMES;
-describe FOLLOWERS;
+-- show tables;
+-- describe USERS;
+-- describe GAMES;
+-- describe FOLLOWERS;

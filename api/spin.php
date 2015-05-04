@@ -9,8 +9,7 @@
 	$mac_address = @$_POST['mac_address'];
 	$spins = @$_POST['spins'];
 
-	$db = Database::singleton();
-
+	$db = new Database();
 
 	// find user entity for mac address
 	$check_mac_address = "select * from USERS where mac_address = '{$mac_address}';";

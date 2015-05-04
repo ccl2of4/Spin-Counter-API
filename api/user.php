@@ -8,8 +8,7 @@
     
 	$mac_address = @$_GET['mac_address'];
 
-	$db = Database::singleton();
-
+	$db = new Database();
 
 	// find user entity for mac address
 	$check_mac_address = "select * from USERS where mac_address = '{$mac_address}';";

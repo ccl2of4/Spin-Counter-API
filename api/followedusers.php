@@ -8,7 +8,7 @@
     
 	$user_id = @$_GET['user_id'];
 
-	$db = Database::singleton();
+	$db = new Database();
 
 	// find all followed users
 	$users = "select * from USERS where user_id in (select followed_user_id from FOLLOWERS where following_user_id = {$user_id});";

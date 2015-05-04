@@ -11,8 +11,8 @@
 	{
 		public function cleanUp ()
 		{
-            global $db_username;
-            global $db_password;
+            		global $db_username;
+            		global $db_password;
 
 			system("mysql -u {$db_username} -p{$db_password} < database/schema.sql");
 		}

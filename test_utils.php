@@ -11,10 +11,6 @@
 			$db->query('delete from GAMES where 1;');
 			$db->query('delete from FOLLOWERS where 1;');
 			$db->query('delete from USERS where 1;');
-
-			// remove data folder
-			global $data_folder_path;
-			system('rm -rf ' . $data_folder_path);
 		}
 		
 		public function setUp () { $this->cleanUp(); }

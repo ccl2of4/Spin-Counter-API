@@ -10,5 +10,8 @@
 	$mac_address = @$_POST['mac_address'];
 
 	$user = getUserByMacAddress($mac_address);
-	changeUsername($user_id, $user['username']);
+	if(!changeUsername($user['user_id'], $username)) {
+		http_response_code(409);
+		exit;
+	}
 ?>

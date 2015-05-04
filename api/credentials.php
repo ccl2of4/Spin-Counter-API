@@ -1,8 +1,8 @@
 <?php
 
 	// credentials for database. modify to suit your needs
-	$username = 'root';
-	$password = 'cummings';
+	$db_username = 'root';
+	$db_password = 'cummings';
 	$db_name = 'SPINCOUNTER';
 
 ?>

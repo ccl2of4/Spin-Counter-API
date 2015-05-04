@@ -1,5 +1,5 @@
 <?php
 	include('utils.php');
 
-	echo getLeaderboard();
+	echo json_encode(getLeaderboard());
 ?>

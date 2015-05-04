@@ -14,7 +14,7 @@
 		$db = new Database();
 		$select = "select user_id from USERS where username = '{$username}';";
 		$result = $db->query($select);
-		if ($row = mysqli_fetch_array($result)) {
+		if ($row = mysqli_fetch_assoc($result)) {
 			return getUser($row['user_id']);
 		}
 		return null;
@@ -32,7 +32,7 @@
 		$db = new Database();
 		$select = "select user_id from USERS where mac_address = '{$mac_address}';";
 		$result = $db->query($select);
-		if ($row = mysqli_fetch_array($result)) {
+		if ($row = mysqli_fetch_assoc($result)) {
 			return getUser($row['user_id']);
 		}
 		return null;
@@ -52,7 +52,7 @@
 		$result = $db->query($select);
 
 		// the user table doesn't have win/loss/tie data, so that has to be obtained dynamically
-		if($row = mysqli_fetch_array($result)) {	
+		if($row = mysqli_fetch_assoc($result)) {	
 			
 			$wins = getWinsForUser($user_id);
 			$row['games_won'] = $wins;
@@ -144,13 +144,15 @@
 	function searchUsers ($query)
 	{
 		$db = new Database();
-		$select = "select * from USERS where username like '{$query}%s';";
-		$result = $db->query($check_mac_address);
+		$select = "select user_id from USERS where username like '{$query}%';";
+		$result = $db->query($select);
 
-		$json_array = array();
-		while($row = mysqli_fetch_array($result)) {
-			$json_array[] = $row;
+		$array = array();
+		while($row = mysqli_fetch_assoc($result)) {
+			$user_id = $row['user_id'];
+			$array[] = getUser($user_id);
 		}
+		return $array;
 	}
 
 	/**
@@ -167,7 +169,7 @@
 		$result = $db->query($select);
 
 		$array = array();
-		while ($row = mysqli_fetch_array($result)) {
+		while ($row = mysqli_fetch_assoc($result)) {
 			$user_id = $row['user_id'];
 			$array[] = getUser($user_id);
 		}
@@ -190,7 +192,7 @@
 		$result = $db->query($select);
 
 		$array = array();
-		while ($row = mysqli_fetch_array($result)) {
+		while ($row = mysqli_fetch_assoc($result)) {
 			$user_id = $row['user_id'];
 			$array[] = getUser($user_id);
 		}
@@ -206,7 +208,7 @@
 	* @param string $mac_address the mac_address to be associated with the user
 	* @param $username the username wanted
 	* @return the user_id of the created user if the user was created succesfully,
-	* false otherwise
+	* null otherwise
 	* 
 	*/
 	function createUser ($mac_address, $username)
@@ -217,11 +219,11 @@
 
 		// if the mac address or username are taken, the query will return false
 		if(!$db->query($insert)) {
-			return false;
+			return null;
 		}
 
 		$select = "select user_id from USERS where username = '{$username}'";
-		return mysqli_fetch_array($db->query($select))['user_id'];
+		return mysqli_fetch_assoc($db->query($select))['user_id'];
 	}
 
 	/**

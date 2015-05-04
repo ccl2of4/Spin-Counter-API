@@ -10,11 +10,13 @@
 	$mac_address = @$_POST['mac_address'];
 
 	$user_id = createUser($mac_address, $username);
+
+
 	if ($user_id == null) {
-		http_response_code(444);
+		http_response_code(409);
 		exit;
 	}
 
-	echo getUser($user_id);
+	echo json_encode(getUser($user_id));
 	http_response_code(201);
 ?>

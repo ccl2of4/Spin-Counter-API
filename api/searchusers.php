@@ -8,5 +8,5 @@
     
 	$query = @$_GET['query'];
 
-	echo searchUsers($query);
+	echo json_encode(searchUsers($query));
 ?>

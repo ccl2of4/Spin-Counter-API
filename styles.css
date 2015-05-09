@@ -1,0 +1,31 @@
+body {
+	background-color:#33b5e5;
+	padding-top: 50px;
+}
+
+div.main {
+	background-color:#0099cc;
+}
+
+div.padded_horizontal {
+	padding-left:40px;
+	padding-right:40px;
+}
+
+div.padded_vertical {
+	padding-top:40px;
+	padding-bottom:40px;
+}
+
+a.link {
+	color:black;
+	text-decoration:underline;
+}
+
+table, td, th, tr, tbody {
+	border: 1px solid black;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #33b5e5;
+}

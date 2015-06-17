@@ -10,7 +10,7 @@ deploy: clean_deploy
 	sudo cp -r html/* /var/www/html/
 
 clean_deploy:
-	sudo rm -rf /var/www/html/api/
+	sudo rm -rf /var/www/html/*
 
 clean:
 	rm -f test_utils.err test_utils.out

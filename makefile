@@ -7,6 +7,7 @@ test_api: deploy
 deploy: clean_deploy
 	sudo mkdir /var/www/html/api/
 	sudo cp -r api/* /var/www/html/api/
+	sudo cp -r html/* /var/www/html/
 
 clean_deploy:
 	sudo rm -rf /var/www/html/api/
